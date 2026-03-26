@@ -18,13 +18,16 @@ A web scraper for `https://books.toscrape.com/` that extracts book details and s
    ```
 
 ## Project Structure
---scraper
- |--main.py
- |--scarper.py 
---output.json
---README.md
---requirements.txt
 
+```text
+.
+├── scraper/
+│   ├── main.py
+│   └── scraper.py
+├── output.json
+├── README.md
+└── requirements.txt
+```
 
 ## Running the Scraper
 
@@ -37,6 +40,7 @@ The extracted data will be saved incrementally to `output.json`.
 
 ## Extracted book details json format
 
+```json
 {
 "name": "A Light in the Attic",
 "url": "https://books.toscrape.com/catalogue/a-light-in-the-attic_1000/index.html",
@@ -47,9 +51,9 @@ The extracted data will be saved incrementally to `output.json`.
 "availability": "In stock (22 available)",
 "upc": "a897fe39b1053632"
 }
+```
 
 ## Features
 
-1. Pagination are handeled automatically
-
-2. Edge cases are handeled efficiently
+1. Pagination is handled automatically.
+2. Edge cases and network errors are handled efficiently with retries and timeouts.
