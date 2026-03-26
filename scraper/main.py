@@ -1,6 +1,6 @@
 import requests
 import json
-from scraper import parse_book, parse_book_details
+from scraper import parse_book, parse_book_details, get_next_page
 
 BASE_URL = "https://books.toscrape.com/"
 
@@ -14,13 +14,22 @@ HEADERS = {
 }
 
 def main():
-    html = fetch_page(BASE_URL)
-    links = parse_book(html=html, base_url=BASE_URL)
+    current_url = BASE_URL
+    final_result = []
+    while current_url:
+        print(f"Parsing for page:{current_url}")
+        html = fetch_page(current_url)
+        links = parse_book(html=html, base_url=current_url)
+        for link in links:
+            print(f"Parsing for link:{link}")
+            detail_html = fetch_page(link)
+            detail = parse_book_details(detail_html, link)
+            print(detail)
+            print("\n")
+            final_result.append(detail)
+        current_url = get_next_page(html, current_url)
+    print(json.dumps(final_result, indent=4, ensure_ascii=False))
 
-    if links:
-        detail_html = fetch_page(links[0])
-        detail = parse_book_details(detail_html, links[0])
-        print(json.dumps(detail, indent=4, ensure_ascii=False))
 
 def fetch_page(url):
     response = requests.get(url, headers=HEADERS)

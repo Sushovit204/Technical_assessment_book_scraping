@@ -2,20 +2,18 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from datetime import datetime
 
-def parse_book(html:str, base_url:str) -> list[str]:
+def parse_book(html, base_url):
     soup = BeautifulSoup(html, "html.parser")
     books = soup.find_all("article", class_="product_pod")
     links = []
     for book in books:
         a_tag = book.find("h3").find("a")
         relative_url = a_tag.get("href")
-        if "catalogue/" not in relative_url:
-            relative_url = "catalogue/" + relative_url
         absolute_url = urljoin(base_url, relative_url)
         links.append(absolute_url)
     return links
 
-def parse_book_details(html:str, url:str) -> dict:
+def parse_book_details(html, url):
     soup = BeautifulSoup(html, "html.parser")
     name = soup.find("h1").text.strip()
     price = soup.find("p", class_="price_color").text.strip()
@@ -48,3 +46,10 @@ def parse_book_details(html:str, url:str) -> dict:
         "upc": upc,
         "rating": rating,
     }
+
+def get_next_page(html, current_url):
+    soup = BeautifulSoup(html, "html.parser")
+    next_tag = soup.find("li", class_="next")
+    if next_tag:
+        return urljoin(current_url, next_tag.find("a").get("href"))
+    return None
