@@ -57,3 +57,4 @@ The extracted data will be saved incrementally to `output.json`.
 
 1. Pagination is handled automatically.
 2. Edge cases and network errors are handled efficiently with retries and timeouts.
+3. Added proper logging in terminal for better user reading
