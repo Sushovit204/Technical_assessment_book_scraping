@@ -17,6 +17,15 @@ A web scraper for `https://books.toscrape.com/` that extracts book details and s
    pip install -r requirements.txt
    ```
 
+## Project Structure
+--scraper
+ |--main.py
+ |--scarper.py 
+--output.json
+--README.md
+--requirements.txt
+
+
 ## Running the Scraper
 
 To run the scraper, execute:
