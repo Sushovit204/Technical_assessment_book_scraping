@@ -41,7 +41,7 @@ def parse_book_details(html:str, url:str) -> dict:
         "name": name,
         "url": url,
         "scrape_date": datetime.now().strftime("%Y-%m-%d"),
-        "description": description,
+        "description": description[:50] + "...",
         "price": price,
         "tax": tax,
         "availability": availability,

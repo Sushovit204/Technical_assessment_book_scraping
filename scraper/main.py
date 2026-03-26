@@ -20,7 +20,7 @@ def main():
     if links:
         detail_html = fetch_page(links[0])
         detail = parse_book_details(detail_html, links[0])
-        print(json.dumps(detail, indent=4))
+        print(json.dumps(detail, indent=4, ensure_ascii=False))
 
 def fetch_page(url):
     response = requests.get(url, headers=HEADERS)
